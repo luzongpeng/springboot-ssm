@@ -1,9 +1,6 @@
 package top.lzp.springbootssm.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import top.lzp.springbootssm.entity.User;
 import top.lzp.springbootssm.provider.UserProvider;
@@ -30,4 +27,10 @@ public interface UserMapper {
 
     @InsertProvider(type = UserProvider.class,method = "saveUser")
     void save(User user);
+
+    @DeleteProvider(type = UserProvider.class,method = "deleteUser")
+    void deleteUser(User user) throws Exception;
+
+    @Update("update user set username = #{username},password = #{password} where id = #{id}")
+    void modifyUser(User userInSql);
 }
